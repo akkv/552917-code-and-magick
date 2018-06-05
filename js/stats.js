@@ -40,7 +40,7 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Список результатов:', CLOUD_X + GAP, CLOUD_Y + VERTICAL_GAP * 2);
   for (var i = 0; i < 4; i++) {
     times[i] = Math.round(times[i]);
-    var randForBlue = Math.floor(1 + Math.random() * 9);
+    var randForBlue = Math.floor(2 + Math.random() * 9);
     var blue = 'rgba(0, 0, 128, 0.' + randForBlue + ')';
     names[i] === 'Вы' ? ctx.fillStyle = 'rgba(255, 0, 0, 1)' : ctx.fillStyle = blue;
     ctx.fillRect(CLOUD_X + (GAP * (i + 1) + BAR_WIDTH * i), CLOUD_Y + CLOUD_HEIGHT - BAR_HEIGHT - VERTICAL_GAP + (BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
