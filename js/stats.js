@@ -33,17 +33,18 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.font = 'normal 16px PT Mono';
   ctx.fillText('Ура вы победили!', CLOUD_X + GAP, CLOUD_Y + VERTICAL_GAP);
   ctx.fillText('Список результатов:', CLOUD_X + GAP, CLOUD_Y + VERTICAL_GAP * 2);
-  var renderStatsBar = function () {
-    for (var i = 0; i < 4; i++) {
+
+  for (var t = 0; t < 4; t++) {
+    var renderStatsBar = function (i) {
       times[i] = Math.round(times[i]);
-      var randForBlue = Math.floor(2 + Math.random() * 9);
-      var blue = 'rgba(0, 0, 128, 0.' + randForBlue + ')';
+      var randForBlue = Math.floor(1 + Math.random() * 255);
+      var blue = 'rgba(0, 0, ' + randForBlue + ',1)';
       ctx.fillStyle = (names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : blue);
       ctx.fillRect(CLOUD_X + (GAP * (i + 1) + BAR_WIDTH * i), CLOUD_Y + CLOUD_HEIGHT - BAR_HEIGHT - VERTICAL_GAP + (BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
       ctx.fillStyle = '#000';
       ctx.fillText(times[i], CLOUD_X + (GAP * (i + 1) + BAR_WIDTH * i), CLOUD_Y + CLOUD_HEIGHT - BAR_HEIGHT - VERTICAL_GAP + (BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime) - 3);
       ctx.fillText(names[i], CLOUD_X + (GAP * (i + 1) + BAR_WIDTH * i), (CLOUD_Y + CLOUD_HEIGHT - BAR_HEIGHT - VERTICAL_GAP + (BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime)) + ((BAR_HEIGHT * times[i]) / maxTime) + 15);
-    }
-  };
-  renderStatsBar();
+    };
+    renderStatsBar(t);
+  }
 };
