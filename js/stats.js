@@ -24,6 +24,7 @@ var renderCloud = function (ctx, x, y, color) {
 var getMaxElement = function (arr) {
   return Math.max.apply(null, arr);
 };
+
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + 10, CLOUD_Y + 10, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
@@ -34,17 +35,18 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Ура вы победили!', CLOUD_X + GAP, CLOUD_Y + VERTICAL_GAP);
   ctx.fillText('Список результатов:', CLOUD_X + GAP, CLOUD_Y + VERTICAL_GAP * 2);
 
-  for (var t = 0; t < 4; t++) {
-    var renderStatsBar = function (i) {
-      times[i] = Math.round(times[i]);
-      var randForBlue = Math.floor(1 + Math.random() * 255);
-      var blue = 'rgba(0, 0, ' + randForBlue + ',1)';
-      ctx.fillStyle = (names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : blue);
-      ctx.fillRect(CLOUD_X + (GAP * (i + 1) + BAR_WIDTH * i), CLOUD_Y + CLOUD_HEIGHT - BAR_HEIGHT - VERTICAL_GAP + (BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_HEIGHT * times[i]) / maxTime);
-      ctx.fillStyle = '#000';
-      ctx.fillText(times[i], CLOUD_X + (GAP * (i + 1) + BAR_WIDTH * i), CLOUD_Y + CLOUD_HEIGHT - BAR_HEIGHT - VERTICAL_GAP + (BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime) - 3);
-      ctx.fillText(names[i], CLOUD_X + (GAP * (i + 1) + BAR_WIDTH * i), (CLOUD_Y + CLOUD_HEIGHT - BAR_HEIGHT - VERTICAL_GAP + (BAR_HEIGHT - (BAR_HEIGHT * times[i]) / maxTime)) + ((BAR_HEIGHT * times[i]) / maxTime) + 15);
-    };
-    renderStatsBar(t);
+  var renderStatsBar = function (x, y, time, name) {
+    time = Math.round(time);
+    var randForBlue = Math.floor(1 + Math.random() * 255);
+    var blue = 'rgba(0, 0, ' + randForBlue + ',1)';
+    ctx.fillStyle = (name === 'Вы' ? 'rgba(255, 0, 0, 1)' : blue);
+    ctx.fillRect(x, y - (BAR_HEIGHT * time) / maxTime, BAR_WIDTH, (BAR_HEIGHT * time) / maxTime);
+    ctx.fillStyle = '#000';
+    ctx.fillText(time, x, y - (BAR_HEIGHT * time) / maxTime - 3);
+    ctx.fillText(name, x, y + 15);
+  };
+
+  for (var i = 0; i < 4; i++) {
+    renderStatsBar(CLOUD_X + GAP + (GAP + BAR_WIDTH) * i, CLOUD_HEIGHT, times[i], names[i]);
   }
 };
