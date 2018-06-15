@@ -35,10 +35,10 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fill();
 };
 
-var renderText = function (ctx, text, x, y, color, font) {
-  ctx.font = font;
-  ctx.fillStyle = color;
-  ctx.fillText(text, x, y);
+var renderText = function (ctx, props) {
+  ctx.font = props.font;
+  ctx.fillStyle = props.color;
+  ctx.fillText(props.text, props.x, props.y);
 };
 
 var generateRandomRGBA = function () {
@@ -46,25 +46,54 @@ var generateRandomRGBA = function () {
   return 'rgba(0, 0, ' + randomVal + ',1)';
 };
 
-var renderStatsBar = function (ctx, x, y, time, name, maxTime) {
-  time = Math.round(time);
-  ctx.fillStyle = (name === YOUR_OBJECT.name ? YOUR_OBJECT.color : generateRandomRGBA());
-  ctx.fillRect(x, y - (BAR_HEIGHT * time) / maxTime, BAR_WIDTH, (BAR_HEIGHT * time) / maxTime);
+var renderStatsBar = function (ctx, props) {
+  props.time = Math.round(props.time);
+  ctx.fillStyle = (props.name === YOUR_OBJECT.name ? YOUR_OBJECT.color : generateRandomRGBA());
+  ctx.fillRect(props.x, props.y - BAR_HEIGHT * props.value, BAR_WIDTH, BAR_HEIGHT * props.value);
 
-  renderText(ctx, time, x, y - (BAR_HEIGHT * time) / maxTime - 3, TEXT_COLOR, TEXT_FONT);
-  renderText(ctx, name, x, y + 15, TEXT_COLOR, TEXT_FONT);
+  renderText(ctx, {
+    text: props.time,
+    x: props.x,
+    y: props.y - BAR_HEIGHT * props.value - 3,
+    color: TEXT_COLOR,
+    font: TEXT_FONT
+  });
+  renderText(ctx, {
+    text: props.name,
+    x: props.x,
+    y: props.y + 15,
+    color: TEXT_COLOR,
+    font: TEXT_FONT
+  });
 };
 
 window.renderStatistics = function (ctx, names, times) {
   var maxTime = getMaxElement(times);
-
   renderCloud(ctx, CLOUD_X + 10, CLOUD_Y + 10, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
   for (var i = 0; i < 4; i++) {
-    renderStatsBar(ctx, CLOUD_X + GAP + (GAP + BAR_WIDTH) * i, CLOUD_HEIGHT, times[i], names[i], maxTime);
+    renderStatsBar(ctx, {
+      x: CLOUD_X + GAP + (GAP + BAR_WIDTH) * i,
+      y: CLOUD_HEIGHT,
+      time: times[i],
+      name: names[i],
+      value: times[i] / maxTime
+    });
   }
 
-  renderText(ctx, 'Ура вы победили!', CLOUD_X + GAP, CLOUD_Y + VERTICAL_GAP, TEXT_COLOR, TEXT_FONT);
-  renderText(ctx, 'Список результатов:', CLOUD_X + GAP, CLOUD_Y + VERTICAL_GAP * 2, TEXT_COLOR, TEXT_FONT);
+  renderText(ctx, {
+    text: 'Ура вы победили!',
+    x: CLOUD_X + GAP,
+    y: CLOUD_Y + VERTICAL_GAP,
+    color: TEXT_COLOR,
+    font: TEXT_FONT
+  });
+  renderText(ctx, {
+    text: 'Список результатов:',
+    x: CLOUD_X + GAP,
+    y: CLOUD_Y + VERTICAL_GAP * 2,
+    color: TEXT_COLOR,
+    font: TEXT_FONT
+  });
 };
