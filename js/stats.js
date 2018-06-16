@@ -97,3 +97,59 @@ window.renderStatistics = function (ctx, names, times) {
     font: TEXT_FONT
   });
 };
+
+
+
+var getRandomInt = function (min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+document.querySelector('.setup').classList.remove('hidden');
+
+var exampleNamesParts = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+var exampleSurnamesParts = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+var exampleCoatColorsParts = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var exampleEyesColorsParts = ['black', 'red', 'blue', 'yellow', 'green'];
+
+var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
+var wizardsSimilarList = document.querySelector('.setup-similar-list');
+
+var createWizardsArray = function (props, amount) {
+  var wizards = [];
+  for (var i = 0; i < amount; i++) {
+    wizards[i] = {
+      name: props.names[getRandomInt(0, props.names.length)] + ' ' + props.surnames[getRandomInt(0, props.surnames.length)],
+      coatColor: props.coatColors[getRandomInt(0, props.coatColors.length)],
+      eyesColor: props.eyesColors[getRandomInt(0, props.eyesColors.length)]
+    };
+  }
+  return wizards;
+};
+
+var createWizard = function (wizardData, template) {
+  var wizard = template.cloneNode(true);
+  wizard.querySelector('.setup-similar-label').textContent = wizardData.name;
+  wizard.querySelector('.wizard-coat').style.fill = wizardData.coatColor;
+  wizard.querySelector('.wizard-eyes').style.fill = wizardData.eyesColor;
+  return wizard;
+};
+
+var createWizardsSimilarList = function (whereCreate, wizardsData, amount) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < amount; i++){
+    var oneWizard = createWizard(wizardsData[i], wizardTemplate);
+    fragment.appendChild(oneWizard);
+  }
+  whereCreate.appendChild(fragment);
+}
+
+var wizards = createWizardsArray({
+  names: exampleNamesParts,
+  surnames: exampleSurnamesParts,
+  coatColors: exampleCoatColorsParts,
+  eyesColors: exampleEyesColorsParts
+}, 4);
+
+createWizardsSimilarList(wizardsSimilarList, wizards, 4);
+
+document.querySelector('.setup-similar').classList.remove('hidden');
