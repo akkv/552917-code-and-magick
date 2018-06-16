@@ -98,8 +98,6 @@ window.renderStatistics = function (ctx, names, times) {
   });
 };
 
-
-
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
@@ -136,12 +134,12 @@ var createWizard = function (wizardData, template) {
 
 var createWizardsSimilarList = function (whereCreate, wizardsData, amount) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < amount; i++){
+  for (var i = 0; i < amount; i++) {
     var oneWizard = createWizard(wizardsData[i], wizardTemplate);
     fragment.appendChild(oneWizard);
   }
   whereCreate.appendChild(fragment);
-}
+};
 
 var wizards = createWizardsArray({
   names: exampleNamesParts,
