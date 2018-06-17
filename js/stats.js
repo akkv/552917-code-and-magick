@@ -112,41 +112,36 @@ var exampleEyesColorsParts = ['black', 'red', 'blue', 'yellow', 'green'];
 var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
 var wizardsSimilarList = document.querySelector('.setup-similar-list');
 
-var createWizardsArray = function (props, amount) {
+var createWizardsArray = function (amount) {
   var wizards = [];
   for (var i = 0; i < amount; i++) {
     wizards[i] = {
-      name: props.names[getRandomInt(0, props.names.length)] + ' ' + props.surnames[getRandomInt(0, props.surnames.length)],
-      coatColor: props.coatColors[getRandomInt(0, props.coatColors.length)],
-      eyesColor: props.eyesColors[getRandomInt(0, props.eyesColors.length)]
+      name: exampleNamesParts[getRandomInt(0, exampleNamesParts.length)] + ' ' + exampleSurnamesParts[getRandomInt(0, exampleSurnamesParts.length)],
+      coatColor:exampleCoatColorsParts[getRandomInt(0, exampleCoatColorsParts.length)],
+      eyesColor: exampleEyesColorsParts[getRandomInt(0, exampleEyesColorsParts.length)]
     };
   }
   return wizards;
 };
 
-var createWizard = function (wizardData, template) {
-  var wizard = template.cloneNode(true);
+var createWizard = function (wizardData) {
+  var wizard = wizardTemplate.cloneNode(true);
   wizard.querySelector('.setup-similar-label').textContent = wizardData.name;
   wizard.querySelector('.wizard-coat').style.fill = wizardData.coatColor;
   wizard.querySelector('.wizard-eyes').style.fill = wizardData.eyesColor;
   return wizard;
 };
 
-var createWizardsSimilarList = function (whereCreate, wizardsData, amount) {
+var createWizardsSimilarList = function (wizardsContainer, wizardsData, amount) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < amount; i++) {
-    var oneWizard = createWizard(wizardsData[i], wizardTemplate);
+    var oneWizard = createWizard(wizardsData[i]);
     fragment.appendChild(oneWizard);
   }
-  whereCreate.appendChild(fragment);
+  wizardsContainer.appendChild(fragment);
 };
 
-var wizards = createWizardsArray({
-  names: exampleNamesParts,
-  surnames: exampleSurnamesParts,
-  coatColors: exampleCoatColorsParts,
-  eyesColors: exampleEyesColorsParts
-}, 4);
+var wizards = createWizardsArray(4);
 
 createWizardsSimilarList(wizardsSimilarList, wizards, 4);
 
