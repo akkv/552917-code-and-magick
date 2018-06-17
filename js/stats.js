@@ -117,7 +117,7 @@ var createWizardsArray = function (amount) {
   for (var i = 0; i < amount; i++) {
     wizards[i] = {
       name: exampleNamesParts[getRandomInt(0, exampleNamesParts.length)] + ' ' + exampleSurnamesParts[getRandomInt(0, exampleSurnamesParts.length)],
-      coatColor:exampleCoatColorsParts[getRandomInt(0, exampleCoatColorsParts.length)],
+      coatColor: exampleCoatColorsParts[getRandomInt(0, exampleCoatColorsParts.length)],
       eyesColor: exampleEyesColorsParts[getRandomInt(0, exampleEyesColorsParts.length)]
     };
   }
