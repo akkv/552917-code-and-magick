@@ -110,21 +110,21 @@ var exampleCoatColorsParts = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(14
 var exampleEyesColorsParts = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('div');
-var wizardsSimilarList = document.querySelector('.setup-similar-list');
+var wizardsContainer = document.querySelector('.setup-similar-list');
 
-var createWizardsArray = function (amount) {
+var generateWizardsData = function (amount) {
   var wizards = [];
   for (var i = 0; i < amount; i++) {
-    wizards[i] = {
+    wizards.push({
       name: exampleNamesParts[getRandomInt(0, exampleNamesParts.length)] + ' ' + exampleSurnamesParts[getRandomInt(0, exampleSurnamesParts.length)],
       coatColor: exampleCoatColorsParts[getRandomInt(0, exampleCoatColorsParts.length)],
       eyesColor: exampleEyesColorsParts[getRandomInt(0, exampleEyesColorsParts.length)]
-    };
+    });
   }
   return wizards;
 };
 
-var createWizard = function (wizardData) {
+var createWizardElement = function (wizardData) {
   var wizard = wizardTemplate.cloneNode(true);
   wizard.querySelector('.setup-similar-label').textContent = wizardData.name;
   wizard.querySelector('.wizard-coat').style.fill = wizardData.coatColor;
@@ -132,17 +132,14 @@ var createWizard = function (wizardData) {
   return wizard;
 };
 
-var createWizardsSimilarList = function (wizardsContainer, wizardsData, amount) {
+var createWizardsSimilarList = function (wizardsData) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < amount; i++) {
-    var oneWizard = createWizard(wizardsData[i]);
-    fragment.appendChild(oneWizard);
+  for (var i = 0; i < wizardsData.length; i++) {
+    fragment.appendChild(createWizardElement(wizardsData[i]));
   }
-  wizardsContainer.appendChild(fragment);
+  return fragment;
 };
 
-var wizards = createWizardsArray(4);
-
-createWizardsSimilarList(wizardsSimilarList, wizards, 4);
+wizardsContainer.appendChild(createWizardsSimilarList(generateWizardsData(4)));
 
 document.querySelector('.setup-similar').classList.remove('hidden');
