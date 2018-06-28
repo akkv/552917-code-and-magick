@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
   var dialogHandler = document.querySelector('.upload');
 
@@ -25,8 +27,8 @@
         y: moveEvt.clientY
       };
 
-      setup.style.top = (setup.offsetTop - shift.y) + 'px';
-      setup.style.left = (setup.offsetLeft - shift.x) + 'px';
+      window.setup.style.top = (window.setup.offsetTop - shift.y) + 'px';
+      window.setup.style.left = (window.setup.offsetLeft - shift.x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
@@ -36,7 +38,7 @@
       document.removeEventListener('mouseup', onMouseUp);
 
       if (dragged) {
-        var onClickPreventDefault = function (evt) {
+        var onClickPreventDefault = function () {
           evt.preventDefault();
           dialogHandler.removeEventListener('click', onClickPreventDefault);
         };
