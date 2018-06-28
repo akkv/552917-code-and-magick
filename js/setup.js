@@ -164,4 +164,3 @@ fireball.addEventListener('click', function () {
     document.addEventListener('mouseup', onMouseUp);
   });
 })();
-
