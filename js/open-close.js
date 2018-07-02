@@ -1,4 +1,5 @@
-(function() {
+'use strict';
+(function () {
   document.querySelector('.setup-similar').classList.remove('hidden');
 
   var setupOpen = document.querySelector('.setup-open');
@@ -10,14 +11,14 @@
   var DEFAULT_X = '50%';
 
   var openPopup = function () {
-    setup.classList.remove('hidden');
+    window.setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
   };
   var closePopup = function () {
-    setup.classList.add('hidden');
+    window.setup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
-    setup.style.top = DEFAULT_Y;
-    setup.style.left = DEFAULT_X;
+    window.setup.style.top = DEFAULT_Y;
+    window.setup.style.left = DEFAULT_X;
 
   };
   var onPopupEscPress = function (evt) {
