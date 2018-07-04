@@ -13,20 +13,26 @@
   var openPopup = function () {
     window.setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
+
   };
-  var closePopup = function () {
+
+  window.closePopup = function () {
     window.setup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
     window.setup.style.top = DEFAULT_Y;
     window.setup.style.left = DEFAULT_X;
-
-  };
-  var onPopupEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      closePopup();
+    if (window.isErrorMessage){
+      var element = document.querySelector('.errorMessage');
+      element.parentNode.removeChild(element);
+      window.isErrorMessage = false;
     }
   };
 
+  var onPopupEscPress = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      window.closePopup();
+    }
+  };
   setupOpen.addEventListener('click', function () {
     openPopup();
   });
@@ -36,11 +42,11 @@
     }
   });
   setupClose.addEventListener('click', function () {
-    closePopup();
+    window.closePopup();
   });
   setupClose.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
-      closePopup();
+      window.closePopup();
     }
   });
 })();
