@@ -21,7 +21,7 @@
     document.removeEventListener('keydown', onPopupEscPress);
     window.setup.style.top = DEFAULT_Y;
     window.setup.style.left = DEFAULT_X;
-    if (window.isErrorMessage){
+    if (window.isErrorMessage) {
       var element = document.querySelector('.errorMessage');
       element.parentNode.removeChild(element);
       window.isErrorMessage = false;
