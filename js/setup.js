@@ -49,7 +49,7 @@
   var submitButton = document.querySelector('.setup-submit');
   var form = document.querySelector('.setup-wizard-form');
   var onError = function (message) {
-    document.body.appendChild(window.backend.createErrorMessage(message));
+    document.body.appendChild(window.utils.createErrorMessage(message));
   };
   var onSave = function () {
     window.closePopup();

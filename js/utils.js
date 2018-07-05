@@ -14,8 +14,8 @@ window.utils = {
     return Math.floor(Math.random() * (max - min)) + min;
   },
 
-  colorToHEX: function (RGB) {
-    var a = RGB.split('(')[1].split(')')[0];
+  colorToHEX: function (rgb) {
+    var a = rgb.split('(')[1].split(')')[0];
     a = a.split(',');
     var b = a.map(function (x) {
       x = parseInt(x, 10).toString(16);
@@ -23,5 +23,17 @@ window.utils = {
     });
     b = '#' + b.join('');
     return b;
+  },
+  createErrorMessage: function (message) {
+    var element = document.createElement('div');
+    element.classList.add('error-message');
+    element.style.background = 'red';
+    element.style.position = 'fixed';
+    element.style.zIndex = 5;
+    element.style.top = '10px';
+    element.style.width = '100%';
+    element.style.textAlign = 'center';
+    element.textContent = message;
+    return element;
   }
 };

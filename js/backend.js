@@ -33,20 +33,6 @@
       );
       xhr.open('POST', URL_SAVE);
       xhr.send(data);
-    },
-
-    createErrorMessage: function (message) {
-      window.isErrorMessage = true;
-      var element = document.createElement('div');
-      element.classList.add('errorMessage');
-      element.style.background = 'red';
-      element.style.position = 'fixed';
-      element.style.zIndex = 5;
-      element.style.top = '10px';
-      element.style.width = '100%';
-      element.style.textAlign = 'center';
-      element.innerHTML = message;
-      return element;
     }
   };
 })();
