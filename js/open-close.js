@@ -21,8 +21,8 @@
     document.removeEventListener('keydown', onPopupEscPress);
     window.setup.style.top = DEFAULT_Y;
     window.setup.style.left = DEFAULT_X;
-    if (document.querySelector('.errorMessage') !== null) {
-      var element = document.querySelector('.errorMessage');
+    if (document.querySelector('.error-message') !== null) {
+      var element = document.querySelector('.error-message');
       element.parentNode.removeChild(element);
     }
   };
