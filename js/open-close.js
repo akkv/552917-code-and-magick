@@ -1,6 +1,5 @@
 'use strict';
 (function () {
-  document.querySelector('.setup-similar').classList.remove('hidden');
 
   var setupOpen = document.querySelector('.setup-open');
   window.setup = document.querySelector('.setup');

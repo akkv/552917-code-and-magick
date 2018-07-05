@@ -1,5 +1,4 @@
 'use strict';
-
 (function () {
   var dialogHandler = document.querySelector('.upload');
 
